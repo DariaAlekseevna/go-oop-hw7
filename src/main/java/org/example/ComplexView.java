@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class ComplexView implements ComplexOperations, Logs, InputNumber {
+public class ComplexView implements ComplexOperations, Logs {
+    private final NumberFactory numberFactory = new NumberFactory();
     @Override
     public void summa(Scanner scanner) {
         info("Запущен метод сложения комплексных чисел");
@@ -12,14 +13,14 @@ public class ComplexView implements ComplexOperations, Logs, InputNumber {
                 "\nгде a и b действительные числа, \ni - мнимая еденица, \nb*i - мнимая часть комплексного числа z");
         System.out.println("\nВведите первое комплексное число");
         System.out.println("Введите действительную часть комплексного числа (a): ");
-        double num1a = inputNumber(scanner);
+        double num1a = numberFactory.inputNumber(scanner);
         System.out.println("Введите действительную составляющую мнимой части комплексного числа (b): ");
-        double num1b = inputNumber(scanner);
+        double num1b = numberFactory.inputNumber(scanner);
         System.out.println("\nВведите второе комплексное число");
         System.out.println("Введите действительную часть комплексного числа (a): ");
-        double num2a = inputNumber(scanner);
+        double num2a = numberFactory.inputNumber(scanner);
         System.out.println("Введите действительную составляющую мнимой части комплексного числа (b): ");
-        double num2b = inputNumber(scanner);
+        double num2b = numberFactory.inputNumber(scanner);
         Double sumA = num1a + num2a;
         Double sumB = num1b + num2b;
         System.out.println();
@@ -35,14 +36,14 @@ public class ComplexView implements ComplexOperations, Logs, InputNumber {
                 "\nгде a и b действительные числа, \ni - мнимая еденица, \nb*i - мнимая часть комплексного числа z");
         System.out.println("\nВведите первое комплексное число");
         System.out.println("Введите действительную часть комплексного числа (a): ");
-        double num1a = inputNumber(scanner);
+        double num1a = numberFactory.inputNumber(scanner);
         System.out.println("Введите действительную составляющую мнимой части комплексного числа (b): ");
-        double num1b = inputNumber(scanner);
+        double num1b = numberFactory.inputNumber(scanner);
         System.out.println("\nВведите второе комплексное число");
         System.out.println("Введите действительную часть комплексного числа (a): ");
-        double num2a = inputNumber(scanner);
+        double num2a = numberFactory.inputNumber(scanner);
         System.out.println("Введите действительную составляющую мнимой части комплексного числа (b): ");
-        double num2b = inputNumber(scanner);
+        double num2b = numberFactory.inputNumber(scanner);
         Double multi1a2a = num1a * num2a;
         Double multi1a2b = num1a * num2b;
         Double multi1b2a = num1b * num2a;
@@ -71,28 +72,4 @@ public class ComplexView implements ComplexOperations, Logs, InputNumber {
         System.out.println("log.WARNING: " + message);
     }
 
-    @Override
-    public Double inputNumber(Scanner scanner) {
-        info("Запущен метод введения чисел с консоли");
-        String num = scanner.next();
-        if (checkNumbers(num) != null) {
-            return checkNumbers(num);
-        } else {
-            warning("Число нельзя представить в формате Double, вернеться 0.0");
-            return 0.0;
-        }
-    }
-
-    @Override
-    public Double checkNumbers(String num) {
-        info("Запущена проверка на принадлежность к действительным числам");
-        try {
-            return Double.parseDouble(num);
-        } catch (NumberFormatException e) {
-            warning("Проверка не пройдена");
-            System.out.println("С таким числом нельзя провести операции, " +
-                    "конечно, если вы ввели число и ввели его верно..");
-            return null;
-        }
-    }
 }

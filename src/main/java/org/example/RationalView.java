@@ -4,28 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class RationalView implements RationalOperations, Logs, InputNumber {
-
-    @Override
-    public Double checkNumbers(String num) {
-        info("Запущена проверка на принадлежность к рациональным числам");
-        try {
-            return Double.parseDouble(num);
-        } catch (NumberFormatException e) {
-            warning("Проверка не пройдена");
-            System.out.println("С таким числом нельзя провести операции, " +
-                    "конечно, если вы ввели число и ввели его верно..");
-            return null;
-        }
-    }
+public class RationalView implements RationalOperations, Logs {
+    private final NumberFactory numberFactory = new NumberFactory();
 
     @Override
     public void summa(Scanner scanner) {
         info("Запущен метод сложения чисел");
         System.out.println("Введите рациональное число: ");
-        double num1 = inputNumber(scanner);
+        double num1 = numberFactory.inputNumber(scanner);
         System.out.println("Введите рациональное число: ");
-        double num2 = inputNumber(scanner);
+        double num2 = numberFactory.inputNumber(scanner);
         Double sum = num1 + num2;
         System.out.println();
         System.out.println(num1 + " + " + num2 + " = " + sum);
@@ -35,9 +23,9 @@ public class RationalView implements RationalOperations, Logs, InputNumber {
     public void multiply(Scanner scanner) {
         info("Запущен метод произведения чисел");
         System.out.println("Введите рациональное число: ");
-        double num1 = inputNumber(scanner);
+        double num1 = numberFactory.inputNumber(scanner);
         System.out.println("Введите рациональное число: ");
-        double num2 = inputNumber(scanner);
+        double num2 = numberFactory.inputNumber(scanner);
         Double multi = num1 * num2;
         System.out.println();
         System.out.println(num1 + " * " + num2 + " = " + multi);
@@ -59,15 +47,4 @@ public class RationalView implements RationalOperations, Logs, InputNumber {
         System.out.println("log.WARNING: " + message);
     }
 
-    @Override
-    public Double inputNumber(Scanner scanner) {
-        info("Запущен метод введения чисел с консоли");
-        String num = scanner.next();
-        if (checkNumbers(num) != null) {
-            return checkNumbers(num);
-        } else {
-            warning("Число нельзя представить в формате Double, вернеться 0.0");
-            return 0.0;
-        }
-    }
 }
